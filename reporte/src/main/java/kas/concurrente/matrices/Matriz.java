@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 public class Matriz implements Runnable {
+    public static final String RUTA = "/Users/sunnymirael/Desktop/Practicas y Tareas Escuela/Taller de redaccion/reporteInvestigacion/Sin título/Reporte-Investigacion/matrices/";
+    public static final String[] MAT = {"mat10","mat100","mat1000"};
+    public static final int HILOS = 10;
     private int [][] matriz;
     private int [][] matrizA;
     private int [][] matrizB;
@@ -117,13 +120,13 @@ public class Matriz implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException{
-        int hilos = Integer.valueOf(args[0]);
-        String archivo = args[1];
+        //int hilos = Integer.valueOf(args[0]);
+        String archivo = RUTA+MAT[0];
         int[][] matrizA = leer(archivo);
         int[][] matrizB = leer(archivo);
         Matriz m = new Matriz(matrizA, matrizB);
 
-        if(hilos == 1){
+        if(HILOS == 1){
             Date start = new Date();
             int[][] resultado = m.resuelveSecuencial(matrizA, matrizB);
             Date end = new Date();
@@ -137,7 +140,7 @@ public class Matriz implements Runnable {
                 hilosL.add(t);
                 t.start();
 
-                if(hilos == hilosL.size()){
+                if(HILOS == hilosL.size()){
                     for(Thread threads : hilosL){
                         threads.join();
                     }
